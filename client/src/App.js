@@ -24,7 +24,7 @@ import { setContext } from "@apollo/client/link/context";
 
 import "font-awesome/css/font-awesome.min.css";
 const httpLink = createHttpLink({
-  uri: "http://localhost:5002",
+  uri: "https://whub1.herokuapp.com/:3000",
 });
 
 const authLink = setContext(() => {
