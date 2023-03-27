@@ -24,8 +24,9 @@ import { setContext } from "@apollo/client/link/context";
 
 import "font-awesome/css/font-awesome.min.css";
 const httpLink = createHttpLink({
-  uri: "https://whub1.herokuapp.com/:3000",
+  uri: "https://whub1.herokuapp.com:3001",
 });
+// https://whub1.herokuapp.com
 
 const authLink = setContext(() => {
   const token = localStorage.getItem("jwtToken");

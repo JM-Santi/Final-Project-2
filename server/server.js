@@ -8,6 +8,10 @@ const mongoose = require("mongoose");
 const { typeDefs, resolvers } = require("./schemas");
 const { PubSub } = require("graphql-subscriptions");
 
+const express = require('express')
+const app = express()
+const path = require('path')
+
 // const typeDefs = require("./graphql/typeDefs");
 // const resolvers = require("./graphql/resolvers");
 // const { MONGODB } = require("./config.js");
@@ -15,7 +19,7 @@ const { connection } = require("./config/connection");
 
 const pubsub = new PubSub();
 
-const PORT = process.env.port || 3000;
+const PORT = process.env.port || 3001;
 
 const server = new ApolloServer({
   typeDefs,
@@ -23,6 +27,21 @@ const server = new ApolloServer({
   context: ({ req }) => ({ req, pubsub }),
 });
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')))
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build/index.html'))
+  })
+} else {
+  app.get('*', (req, res) => {
+    res.status(200).json({ message: 'welcome server...'})
+  })
+}
+
+app.listen(process.env.port || 3002, () => {
+  console.log('node app is running on');
+})
 // mongoose
 //   .connect(MONGODB, { useNewUrlParser: true })
 // connection
@@ -40,6 +59,11 @@ mongoose
   .then((res) => {
     console.log(`Server running at ${res.url}`);
   });
+
+  // app.listen(PORT, () => {
+  //   console.log('server is running on', PORT);
+  // })
+
 // .then((res) => {
 //   console.log(`Server running at ${res.url}`);
 // })
