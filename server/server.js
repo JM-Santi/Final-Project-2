@@ -27,19 +27,18 @@ const server = new ApolloServer({
   context: ({ req }) => ({ req, pubsub }),
 });
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')))
-
+if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
+  app.use(express.static('client/build'));
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build/index.html'))
-  })
+    res.sendFile(path.join(__dirname + '/client/build/index.html'));
+  });
 } else {
   app.get('*', (req, res) => {
-    res.status(200).json({ message: 'welcome server...'})
+    res.status(200).json({ message: 'welcome server...' })
   })
 }
 
-app.listen(process.env.port || 3002, () => {
+app.listen(process.env.port || 80, () => {
   console.log('node app is running on');
 })
 // mongoose
