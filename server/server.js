@@ -38,7 +38,7 @@ if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging')
   })
 }
 
-app.listen(process.env.port || 3002, () => {
+app.listen(process.env.port || 3002, '0.0.0.0', () => {
   console.log('node app is running on');
 })
 // mongoose
