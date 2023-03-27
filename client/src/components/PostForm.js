@@ -28,8 +28,10 @@ function PostForm() {
   function createPostCallback() {
     // alert("in create pos");
     createPost();
-    // navigate("/");
-    window.location.reload();
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   }
 
   return (
