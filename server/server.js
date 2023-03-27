@@ -15,7 +15,7 @@ const { connection } = require("./config/connection");
 
 const pubsub = new PubSub();
 
-const PORT = process.env.port || 5002;
+const PORT = process.env.port || 3000;
 
 const server = new ApolloServer({
   typeDefs,
